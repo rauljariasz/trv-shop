@@ -16,6 +16,9 @@ export const ShoppingCartProvider = ({children}) => {
     setCartProducts(filteredProducts)
   }
 
+  // Shopping Cart - Order
+  const [order, setOrder] = useState([])
+
   // Modal Cart - Checkout side menu
   const [isCheckoutSideMenuOpen, setIsCheckoutSideMenuOpen] = useState(false)
   const openCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(true)
@@ -49,7 +52,9 @@ export const ShoppingCartProvider = ({children}) => {
       isCheckoutSideMenuOpen,
       openCheckoutSideMenu,
       closeCheckoutSideMenu,
-      handleDelete
+      handleDelete,
+      order,
+      setOrder
     }}>
       {children}
     </ShoppingCartContext.Provider>
