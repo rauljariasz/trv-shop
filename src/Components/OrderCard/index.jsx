@@ -1,7 +1,10 @@
 import { XMarkIcon } from '@heroicons/react/24/solid'
+import { ShoppingCartContext } from '../../Context';
+import { useContext } from 'react';
 
 const OrderCard = (data) => {
-  const { price, images, title } = data.data
+  const { handleDelete } = useContext(ShoppingCartContext)
+  const { price, images, title, id } = data.data
   
   return (
     <div className="flex justify-between items-center">
@@ -18,7 +21,7 @@ const OrderCard = (data) => {
         <p className='text-md font-medium'>
           ${price}
         </p>
-        <XMarkIcon className='h-6 w-6 text-black cursor-pointer' />
+        <XMarkIcon onClick={() => handleDelete(id)} className='h-6 w-6 text-black cursor-pointer' />
       </div>
       
     </div>
