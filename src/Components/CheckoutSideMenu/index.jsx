@@ -8,7 +8,7 @@ import './styles.css'
 
 
 const CheckoutSideMenu = () => {
-  const { isCheckoutSideMenuOpen, closeCheckoutSideMenu, cartProducts, setOrder, order, setCartProducts, setCount } = useContext(ShoppingCartContext)
+  const { isCheckoutSideMenuOpen, closeCheckoutSideMenu, cartProducts, setOrder, order, setCartProducts, setCount, setSearchByTitle } = useContext(ShoppingCartContext)
 
   const handleCheckout = () => {
     const orderToAdd = {
@@ -23,6 +23,7 @@ const CheckoutSideMenu = () => {
     ])
     setCartProducts([])
     setCount(0)
+    setSearchByTitle(null)
     closeCheckoutSideMenu()
   }
 

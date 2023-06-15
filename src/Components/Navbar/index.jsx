@@ -4,7 +4,7 @@ import { ShoppingCartIcon } from '@heroicons/react/24/outline'
 import { ShoppingCartContext } from "../../Context"
 
 const Navbar = () => {
-  const { count } = useContext(ShoppingCartContext)
+  const { count, setSearchByCategory } = useContext(ShoppingCartContext)
   const activeStyle = 'underline underline-offset-4'
 
   return (
@@ -19,6 +19,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to='/'
+            onClick={() => setSearchByCategory()}
             className={({ isActive }) =>
             isActive ? activeStyle : undefined
           }>
@@ -28,6 +29,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to='/clothes'
+            onClick={() => setSearchByCategory('clothes')}
             className={({ isActive }) =>
             isActive ? activeStyle : undefined
           }>
@@ -37,6 +39,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to='/electronics'
+            onClick={() => setSearchByCategory('electronics')}
             className={({ isActive }) =>
             isActive ? activeStyle : undefined
           }>
@@ -46,6 +49,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to='/furnitures'
+            onClick={() => setSearchByCategory('furniture')}
             className={({ isActive }) =>
             isActive ? activeStyle : undefined
           }>
@@ -55,15 +59,17 @@ const Navbar = () => {
         <li>
           <NavLink
             to='/toys'
+            onClick={() => setSearchByCategory('shoes')}
             className={({ isActive }) =>
             isActive ? activeStyle : undefined
           }>
-            Toys
+            Shoes
           </NavLink>
         </li>
         <li>
           <NavLink
             to='/others'
+            onClick={() => setSearchByCategory('others')}
             className={({ isActive }) =>
             isActive ? activeStyle : undefined
           }>
