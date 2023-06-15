@@ -6,7 +6,7 @@
 
  Este proyecto lo realice con la finalidad de poner en practica mis conocimientos en React y Tailwind.
 
-  <h4 align="center"> El Reto:</h4>
+  <h4 align="center">Deploy:</h4>
 
  [![](https://img.shields.io/static/v1?label=Live%20Site&message=Click&color=blue)](https://shop-ra.netlify.app/)
  
