@@ -1,16 +1,24 @@
 import { useContext } from "react"
 import { NavLink } from "react-router-dom"
-import { ShoppingCartIcon } from '@heroicons/react/24/outline'
 import { ShoppingCartContext } from "../../Context"
+import ShoppingCartNav from "../ShoppingCartNav"
 
 const Navbar = () => {
-  const { count, setSearchByCategory, setSignOut, setCartProducts, setCount } = useContext(ShoppingCartContext)
+  const { setSearchByCategory, setSignOut, setCartProducts, setCount, signOut, account } = useContext(ShoppingCartContext)
   const activeStyle = 'underline underline-offset-4'
 
   // Sign Out
-  const signOut = localStorage.getItem('sign-out')
-  const parsedSignOut = JSON.parse(signOut)
+  const getSignOutLocalStorage= localStorage.getItem('sign-out')
+  const parsedSignOut = JSON.parse(getSignOutLocalStorage)
   const isUserSignOut = signOut || parsedSignOut
+
+  // Acc
+  const acc = localStorage.getItem('account')
+  const parsedAcc = JSON.parse(acc)
+  // Has an Acc
+  const noAccountInLocalStorage = parsedAcc ? Object.keys(parsedAcc).length === 0 : true
+  const noAccInLocalState = account ? Object.keys(account).length === 0 : true
+  const hasUserAnAccount = !noAccInLocalState || !noAccountInLocalStorage
 
   const handleSignOut = () => {
     const stringifiedSignOut = JSON.stringify(true)
@@ -21,47 +29,30 @@ const Navbar = () => {
   }
 
   const renderView = () => {
-    if (isUserSignOut) {
-      return (
-        <li>
-          <NavLink
-            to='/sign-in'
-            className={({ isActive }) => isActive ? activeStyle : undefined }
-            onClick={handleSignOut}
-          >
-            Sign Out
-          </NavLink>
-        </li>
-      )
-    } else {
+    if (hasUserAnAccount && !isUserSignOut) {
       return (
         <>
           <li className="text-black/60">
-            raul@example.com
+            {parsedAcc?.email}
           </li>
           <li>
             <NavLink
               to='/my-orders'
-              className={({ isActive }) =>
-              isActive ? activeStyle : undefined
-            }>
+              className={({ isActive }) => isActive ? activeStyle : undefined }>
               My Orders
             </NavLink>
           </li>
           <li>
             <NavLink
               to='/my-account'
-              className={({ isActive }) =>
-              isActive ? activeStyle : undefined
-            }>
+              className={({ isActive }) => isActive ? activeStyle : undefined }>
               My Account
             </NavLink>
           </li>
           <li>
             <NavLink
               to='/sign-in'
-              className={({ isActive }) =>
-              isActive ? activeStyle : undefined }
+              className={({ isActive }) => isActive ? activeStyle : undefined }
               onClick={handleSignOut}
             >
               Sign Out
@@ -69,6 +60,19 @@ const Navbar = () => {
           </li>
         </>
       )
+    } else {
+      return (
+        <li>
+          <NavLink
+            to='/sign-in'
+            className={({ isActive }) => isActive ? activeStyle : undefined }
+            onClick={handleSignOut}
+          >
+            Login
+          </NavLink>
+        </li>
+      )
+      
     }
   }
 
@@ -77,7 +81,7 @@ const Navbar = () => {
       {/* Left */}
       <ul className="flex items-center gap-3">
         <li className="font-bold text-lg">
-          <NavLink to='/'>
+          <NavLink to={`${isUserSignOut ? '/sign-in' : '/'}`}>
             Shop
           </NavLink>
         </li>
@@ -123,7 +127,7 @@ const Navbar = () => {
         </li>
         <li>
           <NavLink
-            to='/toys'
+            to='/shoes'
             onClick={() => setSearchByCategory('shoes')}
             className={({ isActive }) =>
             isActive ? activeStyle : undefined
@@ -147,10 +151,7 @@ const Navbar = () => {
       <ul className="flex items-center gap-3">
         {renderView()}
         <li className="flex gap-1 items-center">
-          <ShoppingCartIcon className='h-6 w-6 text-black' />
-          <span>
-            {count}
-          </span>
+          <ShoppingCartNav />
         </li>
       </ul>
     </nav>
